@@ -43,9 +43,14 @@
     	\vfill
 
    	\Large
+	\textbf{Ομάδα 7} \\
 	Οικονόμου Νικόλαος (03120014) \\
 	Ραφτόπουλος Μιχαήλ (03120114) \\
-    	(Ιανουάριος 2025)
+
+	\vfill
+
+	\normalsize
+    	Ιανουάριος 2025
 
     	\vspace{0.8cm}
 \end{titlepage}
@@ -59,24 +64,106 @@
 % Main Content
 
 \section*{Query 1}
-	\lipsum[1]
 	\addcontentsline{toc}{section}{Query 1}
+	\lipsum[1]
+	\FloatBarrier
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{cc}
+			Age Group & Count \\
+			\hline
+			Adults & 121093 \\
+			Young Adults & 33605 \\
+			Children & 15928 \\
+			Elderly & 5985
+		\end{tabular}
+		\caption{Αποτελέσματα query 1.}
+	\end{table}
+	\FloatBarrier
+
 
 \section*{Query 2}
-	\lipsum[2] % Placeholder text. Replace with your content.
 	\addcontentsline{toc}{section}{Query 2}
+	\lipsum[2] % Placeholder text. Replace with your content.
+	\FloatBarrier
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{cccc}
+			year & AREA NAME & closed\_rate & \# \\
+			\hline
+			2010 & Rampart & 32.84713448949121 & 1 \\
+			2010 & Olympic & 31.515289821999087 & 2 \\
+			2010 & Harbor & 29.36028339237341 & 3 \\
+			2011 & Olympic & 35.0400600901352 & 1 \\
+			2011 & Rampart & 32.496447181430604 & 2 \\
+			...
+		\end{tabular}
+		\caption{Aποτελέσματα query 2 (φαίνονται μόνο οι 
+		πρώτες γραμμές).}
+	\end{table}
+	\FloatBarrier
 
 \section*{Query 3}
-	\lipsum[3] % Placeholder text. Replace with your content.
 	\addcontentsline{toc}{section}{Query 3}
+	\lipsum[3] % Placeholder text. Replace with your content.
+	\FloatBarrier
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{ccccc}
+			COMM & ... & Median Income Per Person & ... & 
+			Crimes Per Person Ration \\
+			\hline
+			Elysian Park & & 13871.32276 & & 1.08487 \\ 
+			Longwood & & 13420.05226 & & 0.73017 \\
+			Cadillac-Corning & & 19572.7847 & & 0.66692 \\
+			...
+		\end{tabular}
+		\caption{Aποτελέσματα query 3 (φαίνονται μόνο οι 
+		πρώτες γραμμές και επιλεγμένες στήλες).}
+	\end{table}
+	\FloatBarrier
 
 \section*{Query 4}
-	\lipsum[4] % Placeholder text. Replace with your content.
 	\addcontentsline{toc}{section}{Query 4}
+	\lipsum[4] % Placeholder text. Replace with your content.
+	\FloatBarrier
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{ccc}
+			vict\_descent & total\_victims & ... \\
+			\hline
+			White & 8429 & \\
+			Other & 1125 & \\
+			Hispanic/Latin/Mexican & 868 & \\
+			Unknown & 651 & \\
+			...
+		\end{tabular}
+		\caption{Aποτελέσματα query 4 για την περίπτωση των
+		περιοχών με το υψηλότερο κατά κεφαλήν εισόδημα 
+		(φαίνονται μόνο οι 
+		πρώτες γραμμές και επιλεγμένες στήλες).}
+	\end{table}
+	\FloatBarrier
 
 \section*{Query 5}
-	\lipsum[5] % Placeholder text. Replace with your content.
 	\addcontentsline{toc}{section}{Query 5}
+	\lipsum[5] % Placeholder text. Replace with your content.
+	\FloatBarrier
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{ccc}
+			DIVISION & crime\_count & mean\_distance \\
+			\hline
+			HOLLYWOOD & 213080 & 2.269 \\
+			VAN NUYS & 211457 & 3.181 \\
+			WILSHIRE & 198150 & 2.921 \\
+			SOUTHWEST & 186742 & 2.395 \\
+			...
+		\end{tabular}
+		\caption{Aποτελέσματα query 5 (φαίνονται μόνο οι 
+		πρώτες γραμμές).}
+	\end{table}
+	\FloatBarrier
 
 % References
 \FloatBarrier

@@ -3,7 +3,5 @@
 \contentsline {section}{Query 1}{2}{section*.2}%
 \contentsline {section}{Query 2}{2}{section*.3}%
 \contentsline {section}{Query 3}{2}{section*.4}%
-\contentsline {section}{Query 4}{2}{section*.5}%
+\contentsline {section}{Query 4}{3}{section*.5}%
 \contentsline {section}{Query 5}{3}{section*.6}%
-\selectlanguage *[variant=monotonic,numerals=greek]{greek}
-\selectlanguage *{english}
