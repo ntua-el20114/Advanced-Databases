@@ -35,6 +35,7 @@
     	\vspace{0.5cm}
     	\LARGE
     	Εξαμηνιαία Εργασία \\
+	\Large
     	Σχολή Ηλεκτρολόγων Μηχανικών και Μηχανικών Υπολογιστών, ΕΜΠ
 
     	\vspace{1.5cm}
@@ -58,6 +59,7 @@
 \newpage
 
 % Table of Contents
+% (Maybe we should delete that)
 \tableofcontents
 \newpage
 
@@ -65,8 +67,8 @@
 
 \section*{Query 1}
 	\addcontentsline{toc}{section}{Query 1}
-	\lipsum[1]
 	\FloatBarrier
+	\lipsum[1]
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{cc}
@@ -81,11 +83,24 @@
 	\end{table}
 	\FloatBarrier
 
-
 \section*{Query 2}
 	\addcontentsline{toc}{section}{Query 2}
-	\lipsum[2] % Placeholder text. Replace with your content.
 	\FloatBarrier
+	\par{(α)} Υπολογίστηκαν για κάθε έτος τα 3 Αστυνομικά Τμήματα με το υψηλότερο
+	ποσοστό κλεισμένων υποθέσεων και ταξινομήθηκαν ανά έτος και ανά ποσοστό.
+	Χρησιμοποιήθηκαν δύο διαφορετικά APIs του Spark: το DataFrame API και το SQL
+	API. Μετά από αρκετές επαναλήψεις, η υλοποίσηση με SQL API αποδείχθηκε 
+	ταχύτερη από το αυτήν με DataFrame API. Θεωρητικά δε θα αναμέναμε ουσιαστική
+	διαφορά μεταξύ των δύο, καθώς αποτελούν απλά διαφορετικές διεπαφές του ίδιου
+	optimizer. Η απόκλιση λοιπόν των δύο υλοποιήσεων μάλλον οφείλεται στον τρόπο
+	που αυτές είναι γραμμένες, με τον κώδικα σε DataFrames να οδηγεί σε περισσότερα
+	operations.
+	\par{(β)} Σε αυτό το σημείο, έγινε η μετατροπή των δεδομένων εισόδου από 
+	\texttt{.csv} σε \texttt{.parquet}. Εκτελέστηκε η ίδια υλοποίηση SQL,
+	χρησιμοπιώντας το δεύτερο format. Η υλοποίηση με τα δεδομένα σε
+	\texttt{.parquet} ήταν ταχύτερη. Αυτό είναι αναμενόμενο, καθώς το 
+	\texttt{.parquet} αποτελεί έναν τύπο αρχείου βελτιστοποιημένο για κατανεμημένα
+	filesystems.
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{cccc}
@@ -105,8 +120,8 @@
 
 \section*{Query 3}
 	\addcontentsline{toc}{section}{Query 3}
-	\lipsum[3] % Placeholder text. Replace with your content.
 	\FloatBarrier
+	\lipsum[3] % Placeholder text. Replace with your content.
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{ccccc}
@@ -125,8 +140,8 @@
 
 \section*{Query 4}
 	\addcontentsline{toc}{section}{Query 4}
-	\lipsum[4] % Placeholder text. Replace with your content.
 	\FloatBarrier
+	\lipsum[4] % Placeholder text. Replace with your content.
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{ccc}
@@ -147,8 +162,19 @@
 
 \section*{Query 5}
 	\addcontentsline{toc}{section}{Query 5}
-	\lipsum[5] % Placeholder text. Replace with your content.
 	\FloatBarrier
+	\par Πραγματοποιήθηκε η υλοποίηση του Query 5 και εκτελέστηκε με τα 3
+	ζητούμενα configuration. Για τον υπολογισμό του χρόνου εκτέλεσης, το πρόγραμμα
+	επαναλήφθηκε 10 φορές για κάθε configuration και υπολογίστηκε ο μέσος χρόνος για
+	κάθε περίπτωση. Παρακάτω φαίνονται τα αποτελέσματα:
+	\begin{itemize}
+		\item 2 executors $\times$ 4 cores/8GB memory: \textbf{9.82s}
+		\item 4 executors $\times$ 2 cores/4GB memory: \textbf{7.60s}
+		\item 8 executors $\times$ 1 core/2GB memory: \textbf{7.25s}
+	\end{itemize}
+	\par Βλέπουμε ότι πολλοί «αδύναμοι» executors αποδίδουν καλύτερα απ' ο, τι λίγοι
+	«ισχυροί». Η παρατήρηση αυτή οφείλεται στην υψηλή παραλληλησιμότητα των
+	λειτουργιών, που βλέπουν μεγάλο όφελος με την κατανομή σε πολλές διεργασίες.
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{ccc}
