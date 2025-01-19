@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.11.21)  18 JAN 2025 13:42
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.11.21)  20 JAN 2025 01:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1144,18 +1144,18 @@ Space,Script=Greek].
 (fontspec)             \tex_hyphenchar:D \font =-1\scan_stop: 
 
  [2]
-Overfull \hbox (26.6864pt too wide) in paragraph at lines 178--182
+Overfull \hbox (26.6864pt too wide) in paragraph at lines 184--188
 []\TU/LinuxLibertine(1)/m/n/12 Πραγματοποιήθηκε η υλοποίηση του Query 5 και εκτ
 ελέστηκε με τα 3 ζητούμενα configuration.
  []
 
 [3]
 
-LaTeX Warning: Empty bibliography on input line 208.
+LaTeX Warning: Empty bibliography on input line 216.
 
-LaTeX Info: Redefining \rmfamily on input line 210.
-LaTeX Info: Redefining \sffamily on input line 210.
-LaTeX Info: Redefining \ttfamily on input line 210.
+LaTeX Info: Redefining \rmfamily on input line 218.
+LaTeX Info: Redefining \sffamily on input line 218.
+LaTeX Info: Redefining \ttfamily on input line 218.
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -1275,11 +1275,11 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21427 strings out of 476696
- 445414 string characters out of 5806954
+ 21429 strings out of 476696
+ 445505 string characters out of 5806954
  1859018 words of memory out of 6000000
- 41368 multiletter control sequences out of 15000+600000
- 518131 words of font info for 107 fonts, out of 8000000 for 9000
+ 41369 multiletter control sequences out of 15000+600000
+ 518196 words of font info for 108 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  72i,9n,89p,679b,6925s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
