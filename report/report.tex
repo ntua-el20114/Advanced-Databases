@@ -61,11 +61,6 @@
 
 \newpage
 
-% Table of Contents
-% (Maybe we should delete that)
-\tableofcontents
-\newpage
-
 % Main Content
 
 \section*{Query 1}
@@ -78,8 +73,8 @@
 	ότι στις διάφορες δοκιμές του χρόνου
 	εκτέλεσης των queries τα αποτελέσματα παρουσιάζαν πολύ μεγάλη διακύμανση, που
 	πιθανώς οφείλεται στο cloud περιβάλλον εκτέλεσης. Οι σχετικοί χρόνοι όμως
-	ανάμεσα στις υλοποιήσεις παρέμεναν σταθεροί. Για το λόγο αυτό, στο μεγαλύτερο
-	μέρος της εργασίας αναφερόμαστε σε σχετικούς χρόνόυς και όχι απόλυτα νούμερα.}.
+	ανάμεσα στις υλοποιήσεις παρέμεναν σταθεροί. Για το λόγο αυτό, 
+	σημαντικότεροι είναι οι σχετικοί χρόνοι και όχι τα απόλυτα νούμερα.}.
 	Το αποτέλεσμα αυτό είναι αναμενόμενο, καθώς το DataFrame API αποτελεί μια
 	υψηλωτερη αφαιρετικά διεπαφή, με πολλές βελτιστοποιήσεις να πραγματοποιούνται
 	στο υπόβαθρο (από τον Catalyst Optimizer). Με το RDD API μπορούμε
@@ -139,16 +134,54 @@
 \section*{Query 3}
 	\addcontentsline{toc}{section}{Query 3}
 	\FloatBarrier
-	\lipsum[3] % Placeholder text. Replace with your content.
+	Ύστερα από χρήση της μεθόδου \texttt{.explain()} στα διαφορετικά joins που πραγματοποιούνται σε αυτό το query, πήραμε τα παρακάτω αποτελέσματα για τις επιλογές που κάνει ο Catalyst Optimizer του Spark:
+\begin{itemize}
+    \item Για Join μεταξύ Census και Income Dataset (μικρός πίνακας) χρησιμοποιεί \textbf{BroadcastHash Join}. Η επιλογή βγάζει νόημα, αφού το broadcast join αξιοποείται σε περιπτώσεις όπως αυτήν, δηλαδή για συνένωση μεγάλου με μικρό πίνακα.
+    \item Για Join μεταξύ Crimes και Census Dataset χρησιμοποιεί \textbf{Range Join}. Η επιλογή είναι λογική αφού αξιοποείται σε περιπτώσεις με αριθμητικές τιμής όπως στην συγκεκριμένη που προσπαθεί να ταιριάξει τις συντεταγμένες των εγκλημάτων με την γεωμετρία του κάθε block. Είναι, λοιπόν, η πλέον κατάλληλη μέθοδος συνένωσης μεταξύ δύο dataset που συνδέονται με σχέσεις του τύπου:\newline
+	    $$\leq, \geq, <, > \text{ή BETWEEN}$$
+    \item Για Join μεταξύ των αποτελεσμάτων από τα δύο παραπάνω datasets χρησιμοποιεί \textbf{SortMerge Join}. Η επιλογή είναι αποδεδειγμένα καλή για συνθήκες ισότητας όπως στην συγκεκριμένη που γίνεται με βάση το κλειδί "COMM".
+\end{itemize}
+\vspace{0.3cm}
+\subsubsection*{Χρόνοι εκτέλεσης}
+Οι χρόνοι εκτέλεσης χωρίς την εφαρμογή κάποιου \textbf{.hint()} είναι:
+\begin{itemize}
+    \item Φόρτωση δεδομένων: \textbf{18.56} seconds
+    \item Μέσο εισόδημα ανά άτομο σε κάθε περιοχή: \textbf{16.77} seconds
+    \item Εγκλήματα ανά άτομο σε κάθε περιοχή: \textbf{45.58} seconds
+    \item Συνένωση τελικών αποτελεσμάτων: \textbf{22.53} seconds
+\end{itemize}
+\vspace{0.3cm}
+Παρακάτω βλέπουμε τον πίνακα με την εφαρμογή των διαφορετικών hints για τα επιλεγμένα Join operations (σημειώνεται πως ο χρόνος φόρτωσης των δεδομένων ήταν πάνω κάτω ο ίδιος σε όλες τις εκτελέσης ~18 sec).
+\vspace{0.2cm}
+\begin{table}[ht]
+\centering
+	\fontsize{8pt}{10pt}\selectfont
+\begin{tabular}{ccccc}
+CODE PART & BROADCAST & MERGE & SHUFFLE\_HASH & SHUFFLE\_REPLICATE\_NL \\ \hline
+MEDIAN INCOME PER PERSON & \underline{15 (BroadcastHash)} & 17.4 (SortMerge) & 16.2 (ShuffledHash) & 16.3 (BroadcastHash) \\ 
+CRIMES PER PERSON        & (Spark crushes)    & 40.5 (Range)      & \underline{37.6 (Range)}         & 38.5 (Range)         \\ 
+FINAL MERGE              & 22.2 (BroadcastHash) & \underline{21.5 (SortMerge)} & 23.1 (ShuffledHash) & 26.2 (BroadcastHash) \\ 
+\end{tabular}
+\caption{Comparison of Join Strategies}
+\label{tab:join_comparison}
+\end{table}
+\vspace{0.2cm}
+Υπογραμμισμένα είναι τα καλύτερα αποτελέσματα. Οι διαφορές δεν είναι μεγάλες αλλά υπάρχουν και ταυτίζονται με τις προτάσεις του catalyst optimizer. Αυτό βασίζεται στην αιτιολόγηση που δίνουμε και παραπάνω για τις επιλογές που κάνει και επιβεβαιώνεται από τα αποτελέσματα μας. Οι χρόνοι προήλθαν ως μέσος όρος διαφορετικων εκτελέσεων.\newline
+Σημειώνουμε, επίσης, τις παρακάτω παρατηρήσεις:
+\begin{itemize}
+    \item Το Broadcast Join αποτυγχάνει στην συνένωση δύο μεγάλων Dataset, δηλαδή του Crimes με το Census, μιας και δεν μπορεί να το υποστηρίξει η μνήμη.
+    \item Το Spark επιλέγει αυτόματα το Range Join για την συνένωση των δύο παραπάνω, λόγω της χρήσης της μεθόδου \textbf{ST\_Within}.
+    \item Στην προσπάθεια να μετρήσουμε τους χρόνους εκτέλεσης έγινε εμφανής η στρατηγική του lazy evaluation, μιας και τα timer ακριβώς πριν και μετά την εντολή του join ήταν πολύ μικρά, αφού δεν συνέβαινε τότε κατά την διάρκεια της εκτέλεσης. Γι' αυτόν τον λόγο όπως φαίνεται και στον κώδικα υπολογίσαμε τον συνολικό χρόνο που έκανε το πρόγραμμα για το πρώτο μισό (Median per person ανά περιοχή), το δεύτερο μισό (Crimes per person ανά περιοχή) και τέλος την συνένωση των δύο (Final combined result). Αυτοί οι τελικοί χρόνοι που φαίνονται και στον πίνακα επηρεάζονταν αναλόγως και την στρατηγική Join που χρησιμοποιούσαμε.
+\end{itemize}
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{ccccc}
 			COMM & ... & Median Income Per Person & ... & 
 			Crimes Per Person Ration \\
 			\hline
-			Elysian Park & & 13871.32276 & & 1.08487 \\ 
-			Longwood & & 13420.05226 & & 0.73017 \\
-			Cadillac-Corning & & 19572.7847 & & 0.66692 \\
+			Adams-Normandie & & 8791.4583 & & 0.73693 \\ 
+			Alsace & & 11239.50119 & & 0.55133 \\
+			Angeles National Forest & & 28117.65 & & 11.35 \\
 			...
 		\end{tabular}
 		\caption{Aποτελέσματα query 3 (φαίνονται μόνο οι 
@@ -159,7 +192,17 @@
 \section*{Query 4}
 	\addcontentsline{toc}{section}{Query 4}
 	\FloatBarrier
-	\lipsum[4] % Placeholder text. Replace with your content.
+	Τα αποτελέσματα σχετικά με την επίδοση του query για τα διαφορετικά configurations αναλύονται παρακάτω. Πριν από αυτό, χωρίς το μάθημα να αποτελεί μάθημα στατιστικής ανάλυσης θέλαμε να παρατηρήσουμε τις αξιοσημείωτες διαφορές μεταξύ των φτωχότερων και των πλουσιότερων περιοχών του Los Angeles. Το ένα ενδιαφέρον είναι συνολικός αριθμός των εγκλημάτων (άρα και των θυμάτων) που παρατηρούμε τουλάχιστον τάξη μεγέθους παραπάνω στις φτωχότερες περιοχές. Επίσης, ενδιαφέρον αποτέλεσμα αποτελούν οι φυλετικές διαφορές στα θύματα, πράγμα που απεικονίζει και τις φυλετικές διαφορές στους ίδιους τους κατοίκους της κάθε περιοχής με τις πλουσιότερες περιοχές να έχουν κύρια θύματα Λευκούς ("White") και τις φτωχότερες Ισπανόφωνες φυλές ("Hispanic/Latin/Mexican") και Αφροαμερικάνους ("Black").
+
+Τα αποτελέσματα για τα διαφορετικά configuration μετά από μέσο όρο 10 εκτελέσεων για το καθένα φαίνονται παρακάτω:
+\begin{itemize}
+	\item 1 core/2GB memory: \textbf{7.559s}
+	\item 2 cores/4GB memory: \textbf{7.182s}
+	\item 4 cores/8GB memory: \textbf{7.006s}
+\end{itemize}
+Με βάση τα αποτελέσματα που πήραμε δεν φαίνεται να κλιμακώνει ο κώδικας μας. Αυτό μπορεί να οφείλεται σε πολλούς παράγοντες και αναλύουμε κάποιους από αυτόυς. Το μέγεθος των dataset δεν είναι πάρα πολύ μεγάλο με αποτέλεσμα το overhead του spark (data shuffling, setting up tasks) να ξεπερνά τα οφέλη που μπορεί να έχουν κάποια παραπάνω cores και extra μνήμη. Επίσης, είναι πιθανό ένα bottleneck του χρόνου εκτέλεσης να είναι το φόρτωμα των δεδομένων από το S3 πράγμα που είναι κοινό σε όλα τα configurations. Συνοπτικά δηλαδή, υπάρχει περίπτωση και τα "λιγότερα" resources να επαρκούν για τον υπολογισμό του ζητούμενο και γι' αυτό να μην κάνει μεγάλη διαφορά η προσθήκη μνήμης και πυρήνων.
+\vspace{0.2cm}
+Να σημειωθεί ότι αξιοποιούμε προηγουμένως υπολογισμένα αποτελέσματα του Median Income per Person (Query 3) για να ξεχωρίσουμε τις τρεις πλουσιότερες και τις τρεις φτωχότερες περιοχές του LA.
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{ccc}
@@ -178,6 +221,24 @@
 	\end{table}
 	\FloatBarrier
 
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{ccc}
+			vict\_descent & total\_victims & ... \\
+			\hline
+			Hispanic/Latin/Mexican & 47026 & \\
+			Black & 17151 & \\
+			White & 7265 & \\
+			Other & 3256 & \\
+			...
+		\end{tabular}
+		\caption{Aποτελέσματα query 4 για την περίπτωση των
+		περιοχών με το υψηλότερο κατά κεφαλήν εισόδημα 
+		(φαίνονται μόνο οι 
+		πρώτες γραμμές και επιλεγμένες στήλες).}
+	\end{table}
+	\FloatBarrier
+\newpage
 \section*{Query 5}
 	\addcontentsline{toc}{section}{Query 5}
 	\FloatBarrier

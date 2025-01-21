@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.11.21)  20 JAN 2025 01:31
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.11.21)  21 JAN 2025 18:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -847,13 +847,6 @@ ex-text;"
 xt;"
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
-Package polyglossia Info: Option: Monotonic Greek.
-Package polyglossia Info: Option: Monotonic Greek.
-Package polyglossia Info: Option: Monotonic Greek.
-Package polyglossia Info: Option: Monotonic Greek.
-LaTeX Info: Redefining \rmfamily on input line 51.
-LaTeX Info: Redefining \sffamily on input line 51.
-LaTeX Info: Redefining \ttfamily on input line 51.
 )
 \openout1 = `report.aux'.
 
@@ -1085,22 +1078,7 @@ File: ntua.png Graphic file (type bmp)
 <ntua.png>
 [1
 
-] (./report.toc
-LaTeX Info: Redefining \rmfamily on input line 1.
-LaTeX Info: Redefining \sffamily on input line 1.
-LaTeX Info: Redefining \ttfamily on input line 1.
-Package polyglossia Info: Option: Monotonic Greek.
-Package polyglossia Info: Option: Monotonic Greek.
-Package polyglossia Info: Option: Monotonic Greek.
-Package polyglossia Info: Option: Monotonic Greek.
-LaTeX Info: Redefining \rmfamily on input line 9.
-LaTeX Info: Redefining \sffamily on input line 9.
-LaTeX Info: Redefining \ttfamily on input line 9.
-)
-\tf@toc=\write5
-\openout5 = `report.toc'.
-
- [1]
+]
 
 Package fontspec Info: Font family 'UbuntuMonoNerdFontMono(1)' created for
 (fontspec)             font 'UbuntuMono Nerd Font Mono' with options
@@ -1143,19 +1121,42 @@ Space,Script=Greek].
 (fontspec)             4\font \fontdimen 7\font =0\fontdimen 2\font
 (fontspec)             \tex_hyphenchar:D \font =-1\scan_stop: 
 
- [2]
-Overfull \hbox (26.6864pt too wide) in paragraph at lines 184--188
+
+Overfull \hbox (2.50085pt too wide) in paragraph at lines 137--138
+[]\TU/LinuxLibertine(1)/m/n/12 Ύστερα από χρήση της μεθόδου \TU/UbuntuMonoNerdF
+ontMono(1)/m/n/12 .explain() \TU/LinuxLibertine(1)/m/n/12 στα διαφορετικά joins
+ που πραγματοποιούν-
+ []
+
+[1]
+Overfull \hbox (12.3153pt too wide) in paragraph at lines 139--140
+[]\TU/LinuxLibertine(1)/m/n/12 Για Join μεταξύ Census και Income Dataset (μικρό
+ς πίνακας) χρησιμοποιεί \TU/LinuxLibertine(1)/b/n/12 BroadcastHash
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
+
+ []
+
+
+Overfull \hbox (7.71866pt too wide) in paragraph at lines 172--173
+[]\TU/LinuxLibertine(1)/m/n/12 Το Broadcast Join αποτυγχάνει στην συνένωση δύο 
+μεγάλων Dataset, δηλαδή του Crimes
+ []
+
+[2] [3] [4]
+Overfull \hbox (26.6864pt too wide) in paragraph at lines 245--249
 []\TU/LinuxLibertine(1)/m/n/12 Πραγματοποιήθηκε η υλοποίηση του Query 5 και εκτ
 ελέστηκε με τα 3 ζητούμενα configuration.
  []
 
-[3]
 
-LaTeX Warning: Empty bibliography on input line 216.
+LaTeX Warning: Empty bibliography on input line 277.
 
-LaTeX Info: Redefining \rmfamily on input line 218.
-LaTeX Info: Redefining \sffamily on input line 218.
-LaTeX Info: Redefining \ttfamily on input line 218.
+LaTeX Info: Redefining \rmfamily on input line 279.
+LaTeX Info: Redefining \sffamily on input line 279.
+LaTeX Info: Redefining \ttfamily on input line 279.
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -1256,7 +1257,7 @@ The property list \__xpg_alias contains the pairs (without outer braces):
 >  {polutonikogreek/target}  =>  {greek}
 >  {polutonikogreek/variant}  =>  {polytonic}
 >  {polutonikogreek/options}  =>  {variant=polytonic}.
-[4] (./report.aux
+[5] (./report.aux
 LaTeX Info: Redefining \rmfamily on input line 18.
 LaTeX Info: Redefining \sffamily on input line 18.
 LaTeX Info: Redefining \ttfamily on input line 18.
@@ -1264,23 +1265,23 @@ Package polyglossia Info: Option: Monotonic Greek.
 Package polyglossia Info: Option: Monotonic Greek.
 Package polyglossia Info: Option: Monotonic Greek.
 Package polyglossia Info: Option: Monotonic Greek.
-LaTeX Info: Redefining \rmfamily on input line 51.
-LaTeX Info: Redefining \sffamily on input line 51.
-LaTeX Info: Redefining \ttfamily on input line 51.
+LaTeX Info: Redefining \rmfamily on input line 58.
+LaTeX Info: Redefining \sffamily on input line 58.
+LaTeX Info: Redefining \ttfamily on input line 58.
 )
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: ADD6F0166C8AA9BD0C172F8B6833B222;410.
+(rerunfilecheck)             Checksum: 466D4C1A205E2D6E75C6420565E03C50;410.
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21429 strings out of 476696
- 445505 string characters out of 5806954
- 1859018 words of memory out of 6000000
+ 21432 strings out of 476696
+ 445720 string characters out of 5806954
+ 1858018 words of memory out of 6000000
  41369 multiletter control sequences out of 15000+600000
- 518196 words of font info for 108 fonts, out of 8000000 for 9000
+ 518643 words of font info for 114 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,9n,89p,679b,6925s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,12n,89p,817b,5590s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on report.pdf (5 pages).
+Output written on report.pdf (6 pages).
